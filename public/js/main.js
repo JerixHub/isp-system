@@ -1,12 +1,12 @@
 $(document).ready(function(){
 	$('.apply-select2').select2();
 
-	$('.delete').click(function(){
-		$('#delete').submit();
+	$('.apply-select2-multiple').select2({
+		multiple: true
 	});
 
 	$('.check-all').change(function(){
-		var checker = $('.checker');
+		var checker = $(this).closest('table').find('.checker');
 		if($(this).is(":checked")){
 			checker.each(function(){
 				$(this).prop('checked',true);
@@ -20,9 +20,10 @@ $(document).ready(function(){
 				$('.action-delete').fadeOut(150);
 			});
 		}
+		
 	});
 
-	$('.checker').change(function(){
+	$(document).on('change', '.checker', function(){
 		if($(this).is(':checked')){
 			$(this).addClass('ready');
 		}else{

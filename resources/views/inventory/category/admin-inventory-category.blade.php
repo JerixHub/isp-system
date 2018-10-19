@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="form-group has-feedback">
-                        <input type="text" class="form-control input-md" id="navbar-search-input" placeholder="Search">
+                        <input type="text" class="form-control input-md" id="search-input" placeholder="Search">
                         <span class="glyphicon glyphicon-search form-control-feedback"></span>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
         	<div class="row">
                 <div class="col-lg-12">
                     @if(count($categories) != 0)
-                    <table class="table table-bordered content-table">
+                    <table class="table table-bordered content-table table-hover">
                         <thead>
                             <tr>
                                 <th><input type="checkbox" class="check-all"></th>
@@ -85,6 +85,20 @@
                         </p>
                     </div>
                     @endif
+
+                    <table class="table table-bordered content-table table-hover hidden-search">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="check-all"></th>
+                                <th>Category Name</th>
+                                <th>Parent Category</th>
+                                <th>Show Products</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
                 </div>   
             </div>
         </section>
@@ -122,5 +136,43 @@
 
         }
     });
+
+    $(document).on('click', '.delete', function(){
+        console.log('wow');
+        $(this).closest('td').find('#delete').submit();
+    });
+
+    $('#search-input').keyup(function(){
+        if($(this).val() != ""){
+            var text = $(this).val();
+            var csrf = "{{csrf_token()}}";
+            $('.table:not(.hidden-search)').hide();
+            $('.pagination').hide();
+            $('table.hidden-search').show();
+
+            $.ajax({
+                url: '/inventory/categories/livesearch/'+text,
+                type: 'get',
+                data: {_token: csrf, method: 'get' },
+                success: function(data){
+                    $('table.hidden-search tbody tr').remove();
+                    $('.table.hidden-search').find('tbody').append(data);
+                },
+                error: function(err){
+                    console.log(err);
+                }
+            });
+
+        }else{
+            $('.table:not(.hidden-search)').show();
+            $('.pagination').show();
+            $('table.hidden-search tbody tr').remove();
+            $('table.hidden-search').hide();
+
+        }
+
+    });
+
+
 </script>
 @endsection

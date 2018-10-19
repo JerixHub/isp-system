@@ -29,6 +29,7 @@ Route::prefix('inventory')->middleware('auth')->group(function(){
 	// Categories
 	Route::resource('categories', 'CategoryController');
 	Route::delete('categories/ajax/{id}', 'CategoryController@ajax_destroy');
+	Route::get('categories/livesearch/{text}', 'CategoryController@ajax_search');
 
 	// Brands
 	Route::resource('brands', 'BrandsController');

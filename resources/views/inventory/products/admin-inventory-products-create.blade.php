@@ -60,40 +60,120 @@
                 <div class="form-content">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="form-group row">
-                                <!-- <label for="name" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Product Name</label>
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control input-lg" id="name" name="name" placeholder="Name">
-                                </div> -->
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Product Name</label>
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            <div class="form-group">
+                                <label for="name" class="col-xs-12 col-form-label">Product Name</label>
+                                <div class="col-xs-12 input-group">
                                     <input type="text" class="form-control input-lg" id="name" name="name" placeholder="Name">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="sale_price" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Product Sale Price</label>
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                    <input type="number" class="form-control" id="sale_price" name="sale_price" placeholder="Sale Price">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="purchase_price" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Product Purchase Price</label>
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                    <input type="number" class="form-control" id="purchase_price" name="purchase_price" placeholder="Purchase Price">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="parent_id" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Category</label>
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                    <select name="parent_id" id="parent_id" class="apply-select2 form-control">
-                                        <option disabled selected value> -- no parent -- </option>
-                                        @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-                                    </select>
+                        </div>
+                    </div>
+                    <div class="row tabbed-content">
+                        <div class="col-lg-12">
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#tab_1" data-toggle="tab" aria-expanded="true">Information</a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab_2" data-toggle="tab" aria-expanded="false">Supplier</a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab_3" data-toggle="tab" aria-expanded="false">Inventory</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="product_type" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Product Type</label>
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
+                                                        <select name="product_type" id="product_type" class="form-control">
+                                                            <option value="stockable">Stockable</option>
+                                                            <option value="consumable">Consumable</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="sale_price" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Sale Price</label>
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
+                                                        <span class="input-group-addon">&#8369;</span>
+                                                        <input type="number" class="form-control" min="0" id="sale_price" name="sale_price" step="0.1" placeholder="Sale Price">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group form-check">
+                                                    <label for="is_active" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-4">Active</label>
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 input-group">
+                                                        <input type="checkbox" name="is_active" class="form-check-input" checked>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="barcode" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-4">Barcode</label>
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 input-group">
+                                                        <input type="text" name="barcode" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="description" class="col-xs-12 col-form-label">Description</label>
+                                                    <textarea class="form-control" rows="5" id="description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_2">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="cost_price" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Cost Price</label>
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
+                                                        <span class="input-group-addon">&#8369;</span>
+                                                        <input type="number" class="form-control" min="0" id="cost_price" name="cost_price" step="0.1" placeholder="Cost Price">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <h3>Suppliers</h3>
+                                                <select name="supplier" id="supplier" class="form-control apply-select2-multiple">
+                                                   <option disabled value> -- no supplier -- </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_3">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <h3>Stocks</h3>
+                                                <div class="form-group">
+                                                    <label for="quantity" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Quantity</label>
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
+                                                        <input type="number" class="form-control">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn bg-purple btn-flat">
+                                                                Update
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="unit_measure" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Unit of Measure</label>
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
+                                                        <select name="unit_measure" id="unit_measure" class="form-control apply-select2">
+                                                            <option disabled selected value> -- no unit -- </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -109,4 +189,10 @@
 <li><a href="/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
 <li class="active"><a href="/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
 <li><a href="/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
+@endsection
+
+@section('js')
+<script>
+
+</script>
 @endsection

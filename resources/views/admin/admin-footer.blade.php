@@ -2,7 +2,7 @@
         <footer class="main-footer">
             <!-- To the right -->
             <div class="pull-right hidden-xs">
-                Anything you want
+                Made by Jeric John Carillo
             </div>
             <!-- Default to the left -->
             <strong>Copyright © {{ date('Y') }} <a href="http://purpleplate.com/">Purple Plate</a>.</strong> All rights reserved.
