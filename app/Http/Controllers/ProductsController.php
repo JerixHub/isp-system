@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
+use App\UnitMeasure;
 
 class ProductsController extends Controller
 {
@@ -15,7 +16,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('inventory.products.admin-inventory-products');
+        $units = UnitMeasure::all();
+        return view('inventory.products.admin-inventory-products', compact('units'));
     }
 
     /**
@@ -26,7 +28,8 @@ class ProductsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('inventory.products.admin-inventory-products-create', compact('categories'));
+        $units = UnitMeasure::all();
+        return view('inventory.products.admin-inventory-products-create', compact('categories', 'units'));
     }
 
     /**

@@ -19,7 +19,6 @@ Route::get('/', function () {
 Route::get('sales', 'SalesController@index');
 
 // Inventory Routes
-// Route::get('inventory', 'InventoryController@index');
 Route::prefix('inventory')->middleware('auth')->group(function(){
 	Route::get('/', 'InventoryController@index');
 
@@ -29,10 +28,17 @@ Route::prefix('inventory')->middleware('auth')->group(function(){
 	// Categories
 	Route::resource('categories', 'CategoryController');
 	Route::delete('categories/ajax/{id}', 'CategoryController@ajax_destroy');
-	Route::get('categories/livesearch/{text}', 'CategoryController@ajax_search');
 
 	// Brands
 	Route::resource('brands', 'BrandsController');
+
+	// Unit Measure
+	Route::resource('unit-measures', 'UnitMeasureController');
+	Route::delete('unit-measures/ajax/{id}', 'UnitMeasureController@ajax_destroy');
+
+	// Supplier
+	Route::resource('suppliers', 'SupplierController');
+	Route::delete('suppliers/ajax/{id}', 'SupplierController@ajax_destroy');
 });
 
 

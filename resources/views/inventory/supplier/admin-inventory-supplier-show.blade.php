@@ -15,8 +15,8 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Inventory</li>
             <li><a href="/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
-            <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
-            <li class="active"><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
+            <li class="active"><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
+            <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
             <li><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
             <li><a href="/inventory/brands"><i class="fa fa-circle-o"></i><span>Brands</span></a></li>
         </ul>
@@ -34,10 +34,10 @@
                 <li><a href="/inventory/categories">Category</a></li>
                 <li class="active">{{$name}}</li>
             </ol>
-            <a href="/inventory/categories/{{$id}}/edit" class="btn bg-purple">Edit</a>
-            <a href="/inventory/categories/create" class="btn bg-purple">Create</a>
+            <a href="/inventory/suppliers/{{$id}}/edit" class="btn bg-purple">Edit</a>
+            <a href="/inventory/suppliers/create" class="btn bg-purple">Create</a>
             <input type="button" class="btn bg-red delete" value="Delete">
-            <form action="{{ action('CategoryController@destroy', $id) }}" method="post" id="delete">
+            <form action="{{ action('SupplierController@destroy', $id) }}" method="post" id="delete">
                 {!! method_field('delete') !!}
                 @csrf
             </form>
@@ -57,14 +57,28 @@
 
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 with-separator">
-                        <label for="name">Parent Category</label>
+                        <label for="name">Address</label>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 field-name">
-                        @if(!empty($parent_id))
-                            <h5 data-id="{{$parent_id}}">{{$parent_name}}</h5>
-                        @else
-                            <h5>No Parent Category</h5>
-                        @endif
+                        <h5>{{$address}}</h5>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 with-separator">
+                        <label for="name">Contact Person</label>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 field-name">
+                        <h5>{{$contact_person}}</h5>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 with-separator">
+                        <label for="name">Contact Number</label>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 field-name">
+                        <h5>{{$contact_number}}</h5>
                     </div>
                 </div>
             </div>

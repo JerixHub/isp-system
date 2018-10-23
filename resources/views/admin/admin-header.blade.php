@@ -14,7 +14,9 @@
         <link href="{{ asset('/bower_components/admin-lte/dist/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('/bower_components/admin-lte/dist/css/skins/skin-purple-light.min.css')}}" rel="stylesheet" type="text/css"/>
         <!-- Select2 -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+        <link href="{{ asset('/bower_components/select2/dist/css/select2.min.css') }}" rel="stylesheet"/>
+        <!-- DataTable -->
+        <link rel="stylesheet" href="{{ asset('/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"/>
         <!-- Main Style -->
         <link rel="stylesheet" href="{{ asset('css/main.css') }}" type="text/css"/>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

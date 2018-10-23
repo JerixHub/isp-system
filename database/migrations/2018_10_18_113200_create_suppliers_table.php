@@ -15,6 +15,10 @@ class CreateSuppliersTable extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('address')->nullable();
+            $table->string('contact_number')->nullable();
+            $table->string('contact_person')->nullable();
             $table->timestamps();
         });
     }

@@ -15,7 +15,9 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Inventory</li>
             <li class="active"><a href="/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
+            <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
             <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
+            <li><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
             <li><a href="/inventory/brands"><i class="fa fa-circle-o"></i><span>Brands</span></a></li>
         </ul>
     </section>
@@ -142,7 +144,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <h3>Suppliers</h3>
-                                                <select name="supplier" id="supplier" class="form-control apply-select2-multiple">
+                                                <select name="supplier[]" id="supplier" class="form-control apply-select2">
                                                    <option disabled value> -- no supplier -- </option>
                                                 </select>
                                             </div>
@@ -155,7 +157,7 @@
                                                 <div class="form-group">
                                                     <label for="quantity" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Quantity</label>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control" disabled>
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn bg-purple btn-flat">
                                                                 Update
@@ -167,7 +169,9 @@
                                                     <label for="unit_measure" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Unit of Measure</label>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
                                                         <select name="unit_measure" id="unit_measure" class="form-control apply-select2">
-                                                            <option disabled selected value> -- no unit -- </option>
+                                                            @foreach($units as $unit)
+                                                            <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>

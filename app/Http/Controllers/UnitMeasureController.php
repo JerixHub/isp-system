@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\UnitMeasure;
 
 class UnitMeasureController extends Controller
 {
@@ -13,7 +14,8 @@ class UnitMeasureController extends Controller
      */
     public function index()
     {
-        //
+        $units = UnitMeasure::all();
+        return view('inventory.unitmeasure.admin-inventory-unitmeasure', compact('units'));
     }
 
     /**
@@ -23,7 +25,7 @@ class UnitMeasureController extends Controller
      */
     public function create()
     {
-        //
+        return view('inventory.unitmeasure.admin-inventory-unitmeasure-create');
     }
 
     /**
@@ -34,7 +36,17 @@ class UnitMeasureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name'      => 'required|max:255|string|regex:/(^[A-Za-z ]+$)+/',
+            'abbrev'    => 'required|max:255|string|regex:/(^[A-Za-z ]+$)+/'
+        ]);
+
+        $unitmeasure = UnitMeasure::firstOrCreate(
+            ['name' => $request->name],
+            ['abbrev' => $request->abbrev]
+        );
+
+        return redirect()->action('UnitMeasureController@show', ['id' => $unitmeasure->id]);
     }
 
     /**
@@ -45,7 +57,10 @@ class UnitMeasureController extends Controller
      */
     public function show($id)
     {
-        //
+        $current_unit = UnitMeasure::find($id);
+        $name = $current_unit->name;
+        $abbrev = $current_unit->abbrev;
+        return view('inventory.unitmeasure.admin-inventory-unitmeasure-show', compact('name','abbrev','id'));
     }
 
     /**
@@ -56,7 +71,11 @@ class UnitMeasureController extends Controller
      */
     public function edit($id)
     {
-        //
+        $current_unit = UnitMeasure::find($id);
+        $name = $current_unit->name;
+        $abbrev = $current_unit->abbrev;
+
+        return view('inventory.unitmeasure.admin-inventory-unitmeasure-edit', compact('name', 'abbrev', 'id'));
     }
 
     /**
@@ -68,7 +87,13 @@ class UnitMeasureController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name'      => 'required|max:255|string|regex:/(^[A-Za-z ]+$)+/',
+            'abbrev'    => 'required|max:255|string|regex:/(^[A-Za-z ]+$)+/'
+        ]);
+
+        $current_unit = UnitMeasure::find($id)->update(['name'=>$request->name, 'abbrev'=>$request->abbrev]);
+        return redirect()->action('UnitMeasureController@show', ['id' => $id]);
     }
 
     /**
@@ -79,6 +104,18 @@ class UnitMeasureController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $current_unit = UnitMeasure::find($id);
+
+        $current_unit->delete();
+
+        return redirect()->action('UnitMeasureController@index');
+    }
+
+    public function ajax_destroy($id){
+
+        $current_unit = UnitMeasure::find($id);
+        $current_unit->delete();
+
+        return "Successfully Deleted!";
     }
 }

@@ -15,9 +15,9 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Inventory</li>
             <li><a href="/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
-            <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
+            <li class="active"><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
             <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
-            <li class="active"><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
+            <li><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
             <li><a href="/inventory/brands"><i class="fa fa-circle-o"></i><span>Brands</span></a></li>
         </ul>
     </section>
@@ -37,32 +37,54 @@
             </ul>
         </div>
     @endif
+
+    @if(session()->has('message'))
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> {{ session()->get('message') }}</h4>
+        </div>
+    @endif
     <div class="content-padding">
         <section class="content-header">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <h1>
-                        Unit Measure
+                        Suppliers
                     </h1>
                 </div>
             </div>
         </section>
+
+
         <section class="content">
-            <form action="{{ action('UnitMeasureController@store') }}" method="post">
+            <form action="{{ action('SupplierController@update', $id) }}" method="post">
+                {!! method_field('patch') !!}
                 @csrf
                 <input type="submit" class="btn bg-green" role="button" value="Save">
 
                 <div class="form-content">
                     <div class="form-group row">
-                        <label for="name" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 col-form-label">Unit Name</label>
+                        <label for="name" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 col-form-label">Supplier Name</label>
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="ex. Kilograms, Centimeters, Dozens, Feet">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{$name}}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="abbrev" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 col-form-label">Unit Abbreviation</label>
+                        <label for="address" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 col-form-label">Supplier Address</label>
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                            <input type="text" class="form-control" id="abbrev" name="abbrev" placeholder="ex. kg, cm, dz, ft">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" value="{{$address}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="contact_person" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 col-form-label">Contact Person</label>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                            <input type="text" class="form-control" id="contact_person" name="contact_person" placeholder="ex. John Doe" value="{{$contact_person}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="contact_number" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 col-form-label">Contact Number</label>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                            <input type="text" class="form-control" id="contact_number" name="contact_number" placeholder="ex. 0916xxxxxxx" value="{{$contact_number}}">
                         </div>
                     </div>
                 </div>

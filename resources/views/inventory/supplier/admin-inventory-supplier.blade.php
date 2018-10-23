@@ -15,8 +15,8 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Inventory</li>
             <li><a href="/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
-            <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
-            <li class="active"><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
+            <li class="active"><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Supplier</span></a></li>
+            <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
             <li><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
             <li><a href="/inventory/brands"><i class="fa fa-circle-o"></i><span>Brands</span></a></li>
         </ul>
@@ -31,9 +31,9 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <h1>
-                        Category
+                        Suppliers
                     </h1>
-                    <a href="/inventory/categories/create" class="btn bg-purple">Create</a>
+                    <a href="/inventory/suppliers/create" class="btn bg-purple">Create</a>
                     <a href="#" class="btn btn-danger action-delete" data-csrf="{{csrf_token()}}" style="display: none;">Delete</a>
                 </div>
             </div>
@@ -43,28 +43,28 @@
         <section class="content">
         	<div class="row">
                 <div class="col-lg-12">
-                    @if(count($categories) != 0)
-                    <table class="table table-bordered content-table table-hover">
+                    @if(count($suppliers) != 0)
+                    <table class="table table-bordered content-table table-hover table-responsive">
                         <thead>
                             <tr>
                                 <th><input type="checkbox" class="check-all"></th>
-                                <th>Category Name</th>
-                                <th class="hidden-xs">Parent Category</th>
-                                <th class="hidden-xs">Actions</th>
+                                <th>Supplier Name</th>
+                                <th class="hidden-xs">Supplier Address</th>
+                                <th class="hidden-xs">Contact Person</th>
+                                <th class="hidden-xs">Contact Number</th>
+                                <th class="hidden-xs">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($categories as $category)
+                            @foreach($suppliers as $supplier)
                             <tr>
-                                <td><input type="checkbox" class="checker" data-id="{{$category->id}}"></td>
-                                <td><a href="/inventory/categories/{{$category->id}}">{{$category->name}}</a></td>
-                                <td class="hidden-xs">
-                                    @if(!empty($category->parent))
-                                    <a href="/inventory/categories/{{$category->parent->id}}">{{$category->parent->name}}</a>
-                                    @endif
-                                </td>
-                                <td class="hidden-xs"><a href="#" class="btn btn-primary btn-flat">Show Products</a><a href="/inventory/categories/{{$category->id}}/edit" class="btn btn-primary btn-flat">Edit</a><input type="button" class="btn bg-red btn-flat delete" value="Delete">
-                                <form action="{{ action('CategoryController@destroy', $category->id) }}" method="post" id="delete">
+                                <td><input type="checkbox" class="checker" data-id="{{$supplier->id}}"></td>
+                                <td><a href="/inventory/suppliers/{{$supplier->id}}">{{$supplier->name}}</a></td>
+                                <td class="hidden-xs">{{$supplier->address}}</td>
+                                <td class="hidden-xs">{{$supplier->contact_person}}</td>
+                                <td class="hidden-xs">{{$supplier->contact_number}}</td>
+                                <td class="hidden-xs"><a href="/inventory/suppliers/{{$supplier->id}}/edit" class="btn btn-primary btn-flat">Edit</a><input type="button" class="btn bg-red btn-flat delete" value="Delete">
+                                <form action="{{ action('SupplierController@destroy', $supplier->id) }}" method="post" id="delete">
                                     {!! method_field('delete') !!}
                                     @csrf
                                 </form>
@@ -76,9 +76,10 @@
                     @else
                     <div class="no-content">
                         <p class="no-content-create">
-                            Press to create new category
+                            Press to create new unit measure
                         </p>
                     </div>
+
                     @endif
                 </div>   
             </div>
@@ -102,7 +103,7 @@
             $('.checker.ready').each(function(){
                 var id = $(this).data('id');
                 $.ajax({
-                    url: '/inventory/categories/ajax/'+id,
+                    url: '/inventory/suppliers/ajax/'+id,
                     type: 'delete',
                     data: {_token: csrf, method: 'delete'},
                     success: function(data){

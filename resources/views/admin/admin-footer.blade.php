@@ -19,7 +19,10 @@
     <!-- AdminLTE App -->
     <script src="{{ asset ('/bower_components/admin-lte/dist/js/adminlte.min.js') }}" type="text/javascript"></script>
     <!-- select2 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{{ asset('/bower_components/select2/dist/js/select2.min.js') }}"></script>
+    <!-- DataTable -->
+    <script src="{{ asset('/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
     <!-- Extra JS -->

@@ -16,6 +16,7 @@ class CreateUnitMeasuresTable extends Migration
         Schema::create('unit_measures', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('abbrev');
             $table->timestamps();
         });
 
