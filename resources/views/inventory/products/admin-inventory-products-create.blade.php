@@ -18,7 +18,6 @@
             <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
             <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
             <li><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
-            <li><a href="/inventory/brands"><i class="fa fa-circle-o"></i><span>Brands</span></a></li>
         </ul>
     </section>
 </aside>
@@ -115,7 +114,7 @@
                                                 <div class="form-group">
                                                     <label for="barcode" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-4">Barcode</label>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 input-group">
-                                                        <input type="text" name="barcode" class="form-control">
+                                                        <input type="text" name="barcode" class="form-control" placeholder="ex. 012345789012">
                                                     </div>
                                                 </div>
                                             </div>
@@ -124,7 +123,7 @@
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label for="description" class="col-xs-12 col-form-label">Description</label>
-                                                    <textarea class="form-control" rows="5" id="description"></textarea>
+                                                    <textarea class="form-control" rows="5" id="description" placeholder="Product Description"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,8 +143,10 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <h3>Suppliers</h3>
-                                                <select name="supplier[]" id="supplier" class="form-control apply-select2">
-                                                   <option disabled value> -- no supplier -- </option>
+                                                <select name="suppliers[]" id="suppliers" class="form-control apply-select2" multiple="multiple">
+                                                   @foreach($suppliers as $supplier)
+                                                    <option value="{{$supplier->id}}">{{$supplier->name}}</option>
+                                                   @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -159,10 +160,16 @@
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
                                                         <input type="number" class="form-control" disabled>
                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn bg-purple btn-flat">
+                                                            <button type="button" class="btn bg-purple btn-flat" data-toggle="modal" data-target="#product-modal">
                                                                 Update
                                                             </button>
                                                         </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="forecast" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Forecast Quantity</label>
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
+                                                        <input type="number" class="form-control" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -187,6 +194,26 @@
         </section>
     </div>
 </div>
+
+<div class="modal fade" id="product-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <h4 class="modal-title">Update Product Quantity</h4>
+            </div>
+            <div class="modal-body">
+                wow
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-flat">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('header-menu')

@@ -18,7 +18,6 @@
             <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
             <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
             <li><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
-            <li><a href="/inventory/brands"><i class="fa fa-circle-o"></i><span>Brands</span></a></li>
         </ul>
     </section>
 </aside>
