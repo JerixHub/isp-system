@@ -11,39 +11,40 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// Admin Prefix route
+Route::prefix('admin')->middleware('auth')->group(function(){
+	// Sales Routes
+	Route::prefix('sales')->group(function(){
+		Route::get('/', 'Admin\Sales\SalesController@index');
+	});
 
-// Sales Routes
-Route::get('sales', 'SalesController@index');
+	// Inventory Routes
+	Route::prefix('inventory')->group(function(){
+		Route::get('/', 'Admin\Inventory\InventoryController@index');
 
-// Inventory Routes
-Route::prefix('inventory')->middleware('auth')->group(function(){
-	Route::get('/', 'InventoryController@index');
+		// Products
+		Route::resource('products', 'Admin\Inventory\ProductsController');
 
-	// Products
-	Route::resource('products', 'ProductsController');
+		// Categories
+		Route::resource('categories', 'Admin\Inventory\CategoryController');
+		Route::delete('categories/ajax/{id}', 'Admin\Inventory\CategoryController@ajax_destroy');
 
-	// Categories
-	Route::resource('categories', 'CategoryController');
-	Route::delete('categories/ajax/{id}', 'CategoryController@ajax_destroy');
+		// Unit Measure
+		Route::resource('unit-measures', 'Admin\Inventory\UnitMeasureController');
+		Route::delete('unit-measures/ajax/{id}', 'Admin\Inventory\UnitMeasureController@ajax_destroy');
 
-	// Unit Measure
-	Route::resource('unit-measures', 'UnitMeasureController');
-	Route::delete('unit-measures/ajax/{id}', 'UnitMeasureController@ajax_destroy');
+		// Supplier
+		Route::resource('suppliers', 'Admin\Inventory\SupplierController');
+		Route::delete('suppliers/ajax/{id}', 'Admin\Inventory\SupplierController@ajax_destroy');
+	});
 
-	// Supplier
-	Route::resource('suppliers', 'SupplierController');
-	Route::delete('suppliers/ajax/{id}', 'SupplierController@ajax_destroy');
+
+	// Dashboard Route
+	Route::prefix('dashboard')->group(function(){
+		Route::get('/', 'Admin\DashboardController@index');
+	});
 });
 
-
-// Dashboard Route
-Route::get('dashboard', 'DashboardController@index');
-
-// Authentication Routes
-// Auth::routes();
 // Authentication Routes...
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/', 'Auth\LoginController@login');
@@ -59,5 +60,3 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
-// Home Route
-Route::get('/home', 'HomeController@index')->name('home');

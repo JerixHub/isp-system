@@ -14,10 +14,10 @@
         </div>
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Inventory</li>
-            <li><a href="/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
-            <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
-            <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
-            <li class="active"><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
+            <li><a href="/admin/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
+            <li><a href="/admin/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
+            <li><a href="/admin/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
+            <li class="active"><a href="/admin/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
         </ul>
     </section>
 </aside>
@@ -56,7 +56,7 @@
 
 
         <section class="content">
-            <form action="{{ action('UnitMeasureController@update', $id) }}" method="post">
+            <form action="{{ action('Admin\Inventory\UnitMeasureController@update', $id) }}" method="post">
                 {!! method_field('patch') !!}
                 @csrf
                 <input type="submit" class="btn bg-green" role="button" value="Save">
@@ -82,7 +82,7 @@
 @endsection
 
 @section('header-menu')
-<li><a href="/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
-<li class="active"><a href="/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
-<li><a href="/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
+<li><a href="/admin/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
+<li class="active"><a href="/admin/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
+<li><a href="/admin/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
 @endsection

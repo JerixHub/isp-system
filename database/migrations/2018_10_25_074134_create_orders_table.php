@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUnitMeasuresTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class CreateUnitMeasuresTable extends Migration
      */
     public function up()
     {
-        Schema::create('unit_measures', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('abbrev');
             $table->timestamps();
-        });
-
-        Schema::table('products', function(Blueprint $table) {
-            $table->foreign('unit_measure_id')->references('id')->on('unit_measures');
         });
     }
 
@@ -32,6 +26,6 @@ class CreateUnitMeasuresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unit_measures');
+        Schema::dropIfExists('orders');
     }
 }

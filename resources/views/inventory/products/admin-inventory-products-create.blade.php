@@ -14,10 +14,10 @@
         </div>
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Inventory</li>
-            <li class="active"><a href="/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
-            <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
-            <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
-            <li><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
+            <li class="active"><a href="/admin/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
+            <li><a href="/admin/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
+            <li><a href="/admin/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
+            <li><a href="/admin/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
         </ul>
     </section>
 </aside>
@@ -36,13 +36,6 @@
             </ul>
         </div>
     @endif
-
-    @if(session()->has('message'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> {{ session()->get('message') }}</h4>
-        </div>
-    @endif
     <div class="content-padding">
         <section class="content-header">
             <div class="row">
@@ -54,14 +47,14 @@
             </div>
         </section>
         <section class="content">
-            <form action="{{ action('ProductsController@store') }}" method="post">
+            <form action="{{ action('Admin\Inventory\ProductsController@store') }}" method="post">
                 @csrf
                 <input type="submit" class="btn bg-green" role="button" value="Save">
 
                 <div class="form-content">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="form-group">
+                            <div class="form-group{{$errors->has('name') ? ' has-error' : ''}}">
                                 <label for="name" class="col-xs-12 col-form-label">Product Name</label>
                                 <div class="col-xs-12 input-group">
                                     <input type="text" class="form-control input-lg" id="name" name="name" placeholder="Name">
@@ -88,6 +81,17 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
+                                                    <label for="category" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Category</label>
+                                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
+                                                        <select name="category" id="category" class="form-control apply-select2">
+                                                            <option selected disabled value>No Category</option>
+                                                            @foreach($categories as $category)
+                                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="product_type" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Product Type</label>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
                                                         <select name="product_type" id="product_type" class="form-control">
@@ -100,7 +104,7 @@
                                                     <label for="sale_price" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-form-label">Sale Price</label>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
                                                         <span class="input-group-addon">&#8369;</span>
-                                                        <input type="number" class="form-control" min="0" id="sale_price" name="sale_price" step="0.1" placeholder="Sale Price">
+                                                        <input type="number" class="form-control" min="0" value="0" id="sale_price" name="sale_price" step="0.1" placeholder="Sale Price">
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,7 +127,7 @@
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label for="description" class="col-xs-12 col-form-label">Description</label>
-                                                    <textarea class="form-control" rows="5" id="description" placeholder="Product Description"></textarea>
+                                                    <textarea class="form-control" name="description" rows="5" id="description" placeholder="Product Description"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,7 +139,7 @@
                                                     <label for="cost_price" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Cost Price</label>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
                                                         <span class="input-group-addon">&#8369;</span>
-                                                        <input type="number" class="form-control" min="0" id="cost_price" name="cost_price" step="0.1" placeholder="Cost Price">
+                                                        <input type="number" class="form-control" min="0" id="cost_price" name="cost_price" value="0" step="0.1" placeholder="Cost Price">
                                                     </div>
                                                 </div>
                                             </div>
@@ -158,7 +162,8 @@
                                                 <div class="form-group">
                                                     <label for="quantity" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Quantity</label>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
-                                                        <input type="number" class="form-control" disabled>
+                                                        <input type="number" id="quantity" class="form-control" value="0" disabled>
+                                                        <input type="hidden" id="quantity" name="quantity" value="0">
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn bg-purple btn-flat" data-toggle="modal" data-target="#product-modal">
                                                                 Update
@@ -167,9 +172,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="forecast" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Forecast Quantity</label>
+                                                    <label for="forecast_qty" class="col-form-label col-lg-3 col-md-3 col-sm-3 col-xs-12">Forecast Quantity</label>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 input-group">
-                                                        <input type="number" class="form-control" disabled>
+                                                        <input type="number" id="forecast_qty" class="form-control" value="0" disabled>
+                                                        <input type="hidden" class="forecast_qty" name="forecast_qty" value="0">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -205,10 +211,19 @@
                 <h4 class="modal-title">Update Product Quantity</h4>
             </div>
             <div class="modal-body">
-                wow
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="will_be_forecast" class="col-form-label col-lg-3 col-md-3 col-sm-4 col-xs-12">New Quantity</label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                <input type="number" step="0.1" min="0" name="will_be_forecast" value="0" id="will_be_forecast" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-flat">Save changes</button>
+                <button type="button" class="btn btn-success btn-flat save-modal">Save changes</button>
             </div>
         </div>
     </div>
@@ -217,13 +232,20 @@
 @endsection
 
 @section('header-menu')
-<li><a href="/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
-<li class="active"><a href="/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
-<li><a href="/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
+<li><a href="/admin/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
+<li class="active"><a href="/admin/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
+<li><a href="/admin/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
 @endsection
 
 @section('js')
 <script>
-
+    $(document).ready(function(){
+        $('.modal').on('click', '.save-modal', function(){
+            var forecast_qty = $('#will_be_forecast').val();
+            $('#forecast_qty').val(forecast_qty);
+            $('.forecast_qty').val(forecast_qty);
+            $('.modal').modal('toggle');
+        });
+    });
 </script>
 @endsection

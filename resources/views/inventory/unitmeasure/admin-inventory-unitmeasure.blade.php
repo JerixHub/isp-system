@@ -14,10 +14,10 @@
         </div>
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Inventory</li>
-            <li><a href="/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
-            <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
-            <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
-            <li class="active"><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
+            <li><a href="/admin/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
+            <li><a href="/admin/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
+            <li><a href="/admin/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
+            <li class="active"><a href="/admin/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
         </ul>
     </section>
 </aside>
@@ -32,7 +32,7 @@
                     <h1>
                         Unit Measure
                     </h1>
-                    <a href="/inventory/unit-measures/create" class="btn bg-purple">Create</a>
+                    <a href="/admin/inventory/unit-measures/create" class="btn bg-purple">Create</a>
                     <a href="#" class="btn btn-danger action-delete" data-csrf="{{csrf_token()}}" style="display: none;">Delete</a>
                 </div>
             </div>
@@ -56,10 +56,10 @@
                             @foreach($units as $unit)
                             <tr>
                                 <td><input type="checkbox" class="checker" data-id="{{$unit->id}}"></td>
-                                <td><a href="/inventory/unit-measures/{{$unit->id}}">{{$unit->name}}</a></td>
+                                <td><a href="/admin/inventory/unit-measures/{{$unit->id}}">{{$unit->name}}</a></td>
                                 <td class="hidden-xs">{{$unit->abbrev}}</td>
-                                <td class="hidden-xs"><a href="/inventory/unit-measures/{{$unit->id}}/edit" class="btn btn-primary btn-flat">Edit</a><input type="button" class="btn bg-red btn-flat delete" value="Delete">
-                                <form action="{{ action('UnitMeasureController@destroy', $unit->id) }}" method="post" id="delete">
+                                <td class="hidden-xs"><a href="/admin/inventory/unit-measures/{{$unit->id}}/edit" class="btn btn-primary btn-flat">Edit</a><input type="button" class="btn bg-red btn-flat delete" value="Delete">
+                                <form action="{{ action('Admin\Inventory\UnitMeasureController@destroy', $unit->id) }}" method="post" id="delete">
                                     {!! method_field('delete') !!}
                                     @csrf
                                 </form>
@@ -83,9 +83,9 @@
 @endsection
 
 @section('header-menu')
-<li><a href="/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
-<li class="active"><a href="/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
-<li><a href="/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
+<li><a href="/admin/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
+<li class="active"><a href="/admin/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
+<li><a href="/admin/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
 @endsection
 
 @section('js')
@@ -97,7 +97,7 @@
             $('.checker.ready').each(function(){
                 var id = $(this).data('id');
                 $.ajax({
-                    url: '/inventory/unit-measures/ajax/'+id,
+                    url: '/admin/inventory/unit-measures/ajax/'+id,
                     type: 'delete',
                     data: {_token: csrf, method: 'delete'},
                     success: function(data){
@@ -109,7 +109,6 @@
                 });
 
             });
-
         }
     });
 
@@ -119,35 +118,6 @@
             $(this).closest('td').find('#delete').submit();
         }
     });
-
-    // $('#search-input').keyup(function(){
-    //     if($(this).val() != ""){
-    //         var text = $(this).val();
-    //         var csrf = "{{csrf_token()}}";
-    //         $('.table:not(.hidden-search)').hide();
-    //         $('.pagination').hide();
-    //         $('table.hidden-search').show();
-
-    //         $.ajax({
-    //             url: '/inventory/unit-measures/livesearch/'+text,
-    //             type: 'get',
-    //             data: {_token: csrf, method: 'get' },
-    //             success: function(data){
-    //                 $('table.hidden-search tbody tr').remove();
-    //                 $('.table.hidden-search').find('tbody').append(data);
-    //             },
-    //             error: function(err){
-    //                 console.log(err);
-    //             }
-    //         });
-
-    //     }else{
-    //         $('.table:not(.hidden-search)').show();
-    //         $('.pagination').show();
-    //         $('table.hidden-search tbody tr').remove();
-    //         $('table.hidden-search').hide();
-    //     }
-    // });
 
     $('.content-table').DataTable({
         'searching': true,

@@ -14,10 +14,10 @@
         </div>
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Inventory</li>
-            <li><a href="/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
-            <li class="active"><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
-            <li><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
-            <li><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
+            <li><a href="/admin/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
+            <li class="active"><a href="/admin/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
+            <li><a href="/admin/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
+            <li><a href="/admin/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
         </ul>
     </section>
 </aside>
@@ -36,13 +36,6 @@
             </ul>
         </div>
     @endif
-
-    @if(session()->has('message'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> {{ session()->get('message') }}</h4>
-        </div>
-    @endif
     <div class="content-padding">
         <section class="content-header">
             <div class="row">
@@ -54,7 +47,7 @@
             </div>
         </section>
         <section class="content">
-            <form action="{{ action('SupplierController@store') }}" method="post">
+            <form action="{{ action('Admin\Inventory\SupplierController@store') }}" method="post">
                 @csrf
                 <input type="submit" class="btn bg-green" role="button" value="Save">
 
@@ -91,7 +84,7 @@
 @endsection
 
 @section('header-menu')
-<li><a href="/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
-<li class="active"><a href="/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
-<li><a href="/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
+<li><a href="/admin/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
+<li class="active"><a href="/admin/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
+<li><a href="/admin/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
 @endsection

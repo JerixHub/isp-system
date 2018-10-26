@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Inventory;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Category;
 
 class CategoryController extends Controller
@@ -52,7 +53,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->action('CategoryController@show', ['id' => $category->id]);
+        return redirect()->action('Admin\Inventory\CategoryController@show', ['id' => $category->id]);
     }
 
     /**
@@ -106,7 +107,7 @@ class CategoryController extends Controller
             'name' => 'required|max:255',
         ]);
         $current_categ = Category::find($id)->update(['name'=>$request->name, 'parent_id'=>$request->parent_id]);
-        return redirect()->action('CategoryController@show', ['id' => $id]);
+        return redirect()->action('Admin\Inventory\CategoryController@show', ['id' => $id]);
     }
 
     /**
@@ -126,7 +127,7 @@ class CategoryController extends Controller
 
         $current_categ->delete();
 
-        return redirect()->action('CategoryController@index');
+        return redirect()->action('Admin\Inventory\CategoryController@index');
     }
 
     public function ajax_destroy($id){
@@ -140,24 +141,5 @@ class CategoryController extends Controller
         $current_categ->delete();
 
         return "Successfully Deleted!";
-    }
-
-    public function ajax_search($search){
-        $categories = Category::where('name', 'like', "%{$search}%")->get();
-        $html = '';
-        $csrf = csrf_token();
-        foreach ($categories as $category) {
-            $html .= '<tr>';
-            $html .= '<td><input type="checkbox" class="checker" data-id="'.$category->id.'"></td>';
-            $html .= '<td><a href="/inventory/categories/'.$category->id.'">'.$category->name.'</a></td>';
-            $html .= '<td>';
-            if(!empty($category->parent)){
-                $html .= '<a href="/inventory/categories/'.$category->parent->id.'">'.$category->parent->name.'</a>';
-            }
-            $html .= '</td>';
-            $html .= '<td><a href="#" class="btn btn-primary btn-flat">Show Products</a><a href="/inventory/categories/'.$category->id.'/edit" class="btn btn-primary btn-flat">Edit</a><input type="button" class="btn bg-red btn-flat delete" value="Delete"><form action="'.action('CategoryController@destroy', $category->id) .'" method="post" id="delete"><input type="hidden" name="_method" value="delete"><input type="hidden" name="_token" value="'.$csrf.'"></form></td>';
-            $html .= '</tr>';
-        }
-        return $html;
     }
 }

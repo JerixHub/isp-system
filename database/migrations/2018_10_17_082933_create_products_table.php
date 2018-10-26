@@ -16,10 +16,10 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->float('sale_price')->default(1.0);
-            $table->float('cost_price')->default(1.0);
+            $table->float('sale_price')->default(0);
+            $table->float('cost_price')->default(0);
             $table->text('description')->nullable();
-            $table->unsignedInteger('unit_measure')->nullable();
+            $table->unsignedInteger('unit_measure_id');
             $table->enum('is_active',['yes','no'])->default('yes');
             $table->enum('product_type',['stockable','consumable'])->default('stockable');
             $table->string('barcode')->nullable();

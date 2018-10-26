@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Inventory;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Supplier;
 
 class SupplierController extends Controller
@@ -47,7 +48,7 @@ class SupplierController extends Controller
         $supplier->contact_number = $request->contact_number;
         $supplier->save();
 
-        return redirect()->action('SupplierController@show', ['id' => $supplier->id]);
+        return redirect()->action('Admin\Inventory\SupplierController@show', ['id' => $supplier->id]);
     }
 
     /**
@@ -96,7 +97,7 @@ class SupplierController extends Controller
         ]);
 
         $current_supplier = Supplier::find($id)->update(['name'=>$request->name, 'address'=>$request->address, 'contact_person'=>$request->contact_person, 'contact_number'=>$request->contact_number]);
-        return redirect()->action('SupplierController@show', ['id' => $id]);
+        return redirect()->action('Admin\Inventory\SupplierController@show', ['id' => $id]);
     }
 
     /**
@@ -111,7 +112,7 @@ class SupplierController extends Controller
 
         $current_supplier->delete();
 
-        return redirect()->action('SupplierController@index');
+        return redirect()->action('Admin\Inventory\SupplierController@index');
     }
 
     public function ajax_destroy($id){

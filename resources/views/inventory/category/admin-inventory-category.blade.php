@@ -14,10 +14,10 @@
         </div>
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Inventory</li>
-            <li><a href="/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
-            <li><a href="/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
-            <li class="active"><a href="/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
-            <li><a href="/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
+            <li><a href="/admin/inventory/products"><i class="fa fa-circle-o"></i><span>Products</span></a></li>
+            <li><a href="/admin/inventory/suppliers"><i class="fa fa-circle-o"></i><span>Suppliers</span></a></li>
+            <li class="active"><a href="/admin/inventory/categories"><i class="fa fa-circle-o"></i><span>Categories</span></a></li>
+            <li><a href="/admin/inventory/unit-measures"><i class="fa fa-circle-o"></i><span>Unit Measure</span></a></li>
         </ul>
     </section>
 </aside>
@@ -32,7 +32,7 @@
                     <h1>
                         Category
                     </h1>
-                    <a href="/inventory/categories/create" class="btn bg-purple">Create</a>
+                    <a href="/admin/inventory/categories/create" class="btn bg-purple">Create</a>
                     <a href="#" class="btn btn-danger action-delete" data-csrf="{{csrf_token()}}" style="display: none;">Delete</a>
                 </div>
             </div>
@@ -56,14 +56,14 @@
                             @foreach($categories as $category)
                             <tr>
                                 <td><input type="checkbox" class="checker" data-id="{{$category->id}}"></td>
-                                <td><a href="/inventory/categories/{{$category->id}}">{{$category->name}}</a></td>
+                                <td><a href="/admin/inventory/categories/{{$category->id}}">{{$category->name}}</a></td>
                                 <td class="hidden-xs">
                                     @if(!empty($category->parent))
-                                    <a href="/inventory/categories/{{$category->parent->id}}">{{$category->parent->name}}</a>
+                                    <a href="/admin/inventory/categories/{{$category->parent->id}}">{{$category->parent->name}}</a>
                                     @endif
                                 </td>
-                                <td class="hidden-xs"><a href="#" class="btn btn-primary btn-flat">Show Products</a><a href="/inventory/categories/{{$category->id}}/edit" class="btn btn-primary btn-flat">Edit</a><input type="button" class="btn bg-red btn-flat delete" value="Delete">
-                                <form action="{{ action('CategoryController@destroy', $category->id) }}" method="post" id="delete">
+                                <td class="hidden-xs"><a href="#" class="btn btn-primary btn-flat">Show Products</a><a href="/admin/inventory/categories/{{$category->id}}/edit" class="btn btn-primary btn-flat">Edit</a><input type="button" class="btn bg-red btn-flat delete" value="Delete">
+                                <form action="{{ action('Admin\Inventory\CategoryController@destroy', $category->id) }}" method="post" id="delete">
                                     {!! method_field('delete') !!}
                                     @csrf
                                 </form>
@@ -87,9 +87,9 @@
 @endsection
 
 @section('header-menu')
-<li><a href="/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
-<li class="active"><a href="/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
-<li><a href="/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
+<li><a href="/admin/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
+<li class="active"><a href="/admin/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
+<li><a href="/admin/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
 @endsection
 
 @section('js')
@@ -101,7 +101,7 @@
             $('.checker.ready').each(function(){
                 var id = $(this).data('id');
                 $.ajax({
-                    url: '/inventory/categories/ajax/'+id,
+                    url: '/admin/inventory/categories/ajax/'+id,
                     type: 'delete',
                     data: {_token: csrf, method: 'delete'},
                     success: function(data){

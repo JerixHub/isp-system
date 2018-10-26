@@ -16,6 +16,7 @@ class UserAdminTableSeeder extends Seeder
         DB::table('users')->insert([
         	'name'			=> 'admin',
         	'email'			=> 'admin@admin.com',
+            'country_id'    => 177,
         	'password'		=> bcrypt('password'),
         	'role'			=> 'admin',
         	'created_at'	=> \Carbon\Carbon::now(),

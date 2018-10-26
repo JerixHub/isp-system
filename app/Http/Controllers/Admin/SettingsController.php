@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class InventoryController extends Controller
+class SettingsController extends Controller
 {
-    public function __construct()
+
+	public function __construct()
     {
         $this->middleware('auth');
     }
-
+	
     public function index(){
-    	return view('inventory.admin-inventory');
+    	return view('admin.admin-settings');
     }
 }

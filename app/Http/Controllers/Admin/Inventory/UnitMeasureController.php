@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Inventory;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\UnitMeasure;
 
 class UnitMeasureController extends Controller
@@ -46,7 +47,7 @@ class UnitMeasureController extends Controller
             ['abbrev' => $request->abbrev]
         );
 
-        return redirect()->action('UnitMeasureController@show', ['id' => $unitmeasure->id]);
+        return redirect()->action('Admin\Inventory\UnitMeasureController@show', ['id' => $unitmeasure->id]);
     }
 
     /**
@@ -93,7 +94,7 @@ class UnitMeasureController extends Controller
         ]);
 
         $current_unit = UnitMeasure::find($id)->update(['name'=>$request->name, 'abbrev'=>$request->abbrev]);
-        return redirect()->action('UnitMeasureController@show', ['id' => $id]);
+        return redirect()->action('Admin\Inventory\UnitMeasureController@show', ['id' => $id]);
     }
 
     /**
@@ -108,7 +109,7 @@ class UnitMeasureController extends Controller
 
         $current_unit->delete();
 
-        return redirect()->action('UnitMeasureController@index');
+        return redirect()->action('Admin\Inventory\UnitMeasureController@index');
     }
 
     public function ajax_destroy($id){

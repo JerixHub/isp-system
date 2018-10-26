@@ -1,15 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Inventory;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Product;
 use App\UnitMeasure;
 use App\Supplier;
+use App\StockMove;
 
 class ProductsController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +21,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('inventory.products.admin-inventory-products');
+        $products = Product::all();
+        return view('inventory.products.admin-inventory-products', compact('products'));
     }
 
     /**
@@ -41,7 +46,41 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name'              => 'required|max:255|string',
+            'unit_measure'      => 'required|integer'
+        ]);
+
+        $product = new Product;
+        $product->name = $request->name;
+        $product->sale_price = $request->sale_price;
+        $product->cost_price = $request->cost_price;
+        $product->description = $request->description;
+        $product->unit_measure_id = $request->unit_measure;
+        if($request->is_active == 'on'){
+            $product->is_active = 'yes';
+        }else{
+            $product->is_active = 'no';
+        }
+        $product->product_type = $request->product_type;
+        $product->barcode = $request->barcode;
+        $product->category_id = $request->category;
+        $product->save();
+
+        if(!empty($request->suppliers)){
+            foreach ($request->suppliers as $supplier) {
+                DB::table('product_supplier')->insert(
+                    [
+                        'supplier_id'   =>$supplier,
+                        'product_id'    =>$product->id,
+                        'created_at'    => \Carbon\Carbon::now(),
+                        'updated_at'    => \Carbon\Carbon::now()
+                    ]
+                );
+            }
+        }
+
+        return redirect()->action('Admin\Inventory\ProductsController@show', ['id'=>$product->id]);
     }
 
     /**

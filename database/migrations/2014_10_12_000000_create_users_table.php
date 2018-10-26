@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->unsignedInteger('country_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('role')->default('normal');
             $table->string('password');
