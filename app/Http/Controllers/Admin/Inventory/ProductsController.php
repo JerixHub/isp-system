@@ -106,6 +106,7 @@ class ProductsController extends Controller
     public function show($id)
     {
         $current_product = Product::find($id);
+        dd($current_product);
     }
 
     /**
