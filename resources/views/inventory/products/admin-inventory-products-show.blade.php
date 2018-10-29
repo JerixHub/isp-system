@@ -27,43 +27,33 @@
 <div class="content-wrapper">
     <div class="content-padding">
         <section class="content-header">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <h1>
-                        Products
-                    </h1>
-                    <a href="/admin/inventory/products/create" class="btn bg-purple">Create</a>
-                </div>
-            </div>
+            <ol class="breadcrumb">
+                <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="/admin/inventory">Inventory</a></li>
+                <li><a href="/admin/inventory/categories">Category</a></li>
+                <li class="active">{{$name}}</li>
+            </ol>
+            <a href="/admin/inventory/suppliers/{{$id}}/edit" class="btn bg-purple">Edit</a>
+            <a href="/admin/inventory/suppliers/create" class="btn bg-purple">Create</a>
+            <input type="button" class="btn bg-red delete" value="Delete">
+            <form action="{{ action('Admin\Inventory\ProductsController@destroy', $id) }}" method="post" id="delete">
+                {!! method_field('delete') !!}
+                @csrf
+            </form>
         </section>
 
 
         <section class="content">
-            <div class="row main">
-                @foreach($products as $product)
-                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 product-cards">
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <a href="/admin/inventory/products/{{$product->id}}"><h3 class="box-title">{{$product->name}}</h3></a>
-                        </div>
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <p class="product-price">Price: {{Auth::user()->country->symbol}}{{$product->sale_price}}/{{$product->unit_measure->name}}</p>
-                                    <p class="cost-price">Cost Price: {{Auth::user()->country->symbol}}{{$product->cost_price}}/{{$product->unit_measure->name}}</p>
-                                    <p class="product-qty">Quantity: {{$product->quantity}}</p>
-                                    @if(!empty($product->barcode))
-                                    <p class="product-barcode">Reference: {{$product->barcode}}</p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+            <div class="form-content">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 with-separator">
+                        <label for="name">Product Name</label>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 field-name">
+                        <h5>{{$name}}</h5>
                     </div>
                 </div>
-                @endforeach
-            </div>
 
-            <div class="row search-start">
                 
             </div>
         </section>
@@ -75,4 +65,12 @@
 <li><a href="/admin/sales"><i class="fa fa-dollar"></i> <span class="hidden-xs">Sales</span></a></li>
 <li class="active"><a href="/admin/inventory"><i class="fa fa-archive"></i> <span class="hidden-xs">Inventory</span></a></li>
 <li><a href="/admin/purchase"><i class="fa fa-book"></i> <span class="hidden-xs">Purchases</span></a></li>
+@endsection
+
+@section('js')
+<script>
+    $(document).on('click', '.delete', function(){
+        $('#delete').submit();
+    });
+</script>
 @endsection

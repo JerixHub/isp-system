@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use GuzzleHttp\Client;
 
 class RegisterController extends Controller
 {
@@ -63,10 +64,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+
+        // $header = ['Content-Type' => 'application/json'];
+        // $body = array('business_name' => $data['business_name']);
+        // $body = json_encode($body);
+        // $client = new Client();
+        // $res = $client->request('POST','https://asia-northeast1-gdgdemo-219811.cloudfunctions.net/wp_builder_function', array('headers' => $header, 'body' => $body));
+        // if($res->getStatusCode() == 200){
+
+        //     $str_lower = strtolower($data['business_name']);
+        //     $business_name = preg_replace('/[^A-Za-z0-9\-]/', '', $str_lower);
+        //     $redirectTo = $business_name.'dkjericsample.tk';
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                // 'business_name' => $business_name,
+                'password' => Hash::make($data['password']),
+            ]);
+        // }else{
+            // return;
+        // }
+
     }
 }

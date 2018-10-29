@@ -76,11 +76,15 @@ h1, h2, h3, h4, h5, h6, p, a, label{
 	border-top-color: #605ca8;
 }
 
+/*Inventory Products*/
+.product-cards .box{
+	min-height: 200px;
+}
 
+.product-cards .box-header{
+	overflow: hidden;
+}
 
-/*input.required{
-	background-color: #D2D2FF;
-}*/
 
 /*Sales*/
 
@@ -101,3 +105,9 @@ h1, h2, h3, h4, h5, h6, p, a, label{
 
 
 /*Media Queries*/
+
+@media (min-width: 1200px){
+	.product-cards:not(:nth-child(4n)){
+		padding-right: 0px;
+	}
+}

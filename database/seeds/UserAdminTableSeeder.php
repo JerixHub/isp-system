@@ -19,6 +19,7 @@ class UserAdminTableSeeder extends Seeder
             'country_id'    => 177,
         	'password'		=> bcrypt('password'),
         	'role'			=> 'admin',
+            'business_name' => 'jericcompany',
         	'created_at'	=> \Carbon\Carbon::now(),
         	'updated_at'	=> \Carbon\Carbon::now()
         ]);

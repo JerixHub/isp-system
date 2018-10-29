@@ -15,7 +15,7 @@ class CreateStockMovesTable extends Migration
     {
         Schema::create('stock_moves', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('reference');
+            $table->string('reference')->nullable();
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->float('quantity');

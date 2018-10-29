@@ -65,6 +65,7 @@ class ProductsController extends Controller
         $product->product_type = $request->product_type;
         $product->barcode = $request->barcode;
         $product->category_id = $request->category;
+        $product->quantity = $request->forecast_qty;
         $product->save();
 
         if(!empty($request->suppliers)){
@@ -80,6 +81,19 @@ class ProductsController extends Controller
             }
         }
 
+        if(!empty($request->forecast_qty)){
+            DB::table('stock_moves')->insert(
+                [
+                    'reference'         => $product->barcode,
+                    'product_id'        => $product->id,
+                    'quantity'          => $request->forecast_qty,
+                    'unit_measure_id'   => $request->unit_measure,
+                    'created_at'        => \Carbon\Carbon::now(),
+                    'updated_at'        => \Carbon\Carbon::now()
+                ]
+            );
+        }
+
         return redirect()->action('Admin\Inventory\ProductsController@show', ['id'=>$product->id]);
     }
 
@@ -91,7 +105,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
+        $current_product = Product::find($id);
     }
 
     /**

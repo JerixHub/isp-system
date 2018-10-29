@@ -5,7 +5,16 @@
 <form method="POST" action="{{ route('register') }}">
     @csrf
     <div class="form-group has-feedback">
-        <input id="name" type="text" placeholder="Fullname" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+        <input type="text" name="business_name" id="business_name" placeholder="Business Name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{old('business_name')}}" required autofocus>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        @if($errors->has('business_name'))
+        <span class="invalid-feedback" role="alert">
+            <strong>{{$errors->first('business_name')}}</strong>
+        </span>
+        @endif
+    </div>
+    <div class="form-group has-feedback">
+        <input id="name" type="text" placeholder="Fullname" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
         @if ($errors->has('name'))
         <span class="invalid-feedback" role="alert">

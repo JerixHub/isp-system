@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('unit_measure_id');
             $table->enum('is_active',['yes','no'])->default('yes');
             $table->enum('product_type',['stockable','consumable'])->default('stockable');
+            $table->float('quantity')->default(0);
             $table->string('barcode')->nullable();
             $table->unsignedInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
