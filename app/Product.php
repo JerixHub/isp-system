@@ -13,6 +13,7 @@ class Product extends Model
 		'description',
 		'unit_measure',
 		'is_active',
+		'quantity',
 		'product_type',
 		'barcode',
 		'category_id'
@@ -26,5 +27,10 @@ class Product extends Model
 	public function unit_measure()
 	{
 		return $this->belongsTo('App\UnitMeasure');
+	}
+
+	public function category()
+	{
+		return $this->belongsTo('App\Category');
 	}
 }

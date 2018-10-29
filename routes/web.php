@@ -24,6 +24,7 @@ Route::prefix('admin')->middleware('auth')->group(function(){
 
 		// Products
 		Route::resource('products', 'Admin\Inventory\ProductsController');
+		Route::match(['put','patch'], 'products/update_ajax/{id}', 'Admin\Inventory\ProductsController@updateProductQuantity');
 
 		// Categories
 		Route::resource('categories', 'Admin\Inventory\CategoryController');
